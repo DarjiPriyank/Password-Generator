@@ -17,6 +17,7 @@ class PasswordGenrator extends Component {
             generatedPassword: "",
         }
     }
+    
 
     onChange = (e) => this.setState({ [e.target.name]: e.target.value });
     //this.setState({ [e.target.name] : e.target.value });
@@ -32,8 +33,8 @@ class PasswordGenrator extends Component {
     setLength = ({ value }) => {
         this.setState(({ progress, password }) => ({
             password: { ...password, length: value }
-          }),
-        //   () => this.buildPassword()
+        }),
+            //   () => this.buildPassword()
         );
     }
     onSubmit = (e) => {
@@ -43,12 +44,10 @@ class PasswordGenrator extends Component {
     generatePassword = (length, upper, lower, numbers, symbols) => {
         let pass = "";
         let list = "";
-        console.log(upper);
         (upper === true) ? list += this.state.upper : list += "";
         (lower === true) ? list += this.state.lower : list += "";
         (numbers === true) ? list += this.state.numbers : list += "";
         (symbols === true) ? list += this.state.symbols : list += "";
-        console.log(list)
         for (let ma = 0; ma < length; ma++) {
             pass += list[Math.floor(Math.random() * list.length)];
         }
@@ -70,14 +69,15 @@ class PasswordGenrator extends Component {
                     ref={(textarea) => this.textArea = textarea}
                     value={this.state.password.data}
                     onChange={this.onChange}
+                    className="form-control"
                     disable="true"
-                /><button onClick={this.copyToClipboard}>Copy</button>
+                /><button onClick={this.copyToClipboard} className="btn btn-default">Copy</button>
                 {this.state.copySuccess}
                 <br />
                 <input
                     type="range"
                     min="6"
-                    max="64"
+                    max="25"
                     defaultValue={this.state.password.length}
                     onChange={e => this.setLength(e.target)}
                 />{this.state.password.length}
@@ -108,7 +108,7 @@ class PasswordGenrator extends Component {
                     onChange={this.handleChange}
                     checked={this.state.hasSymbol}
                 /><br />
-                <button onClick={this.onSubmit}>Hello</button>
+                <button onClick={this.onSubmit} className="btn btn-primary">Generate</button>
             </div>
         )
     }
